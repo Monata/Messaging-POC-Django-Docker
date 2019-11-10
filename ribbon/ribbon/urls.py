@@ -18,5 +18,6 @@ from django.urls import path,include
 
 urlpatterns = [
     path('', include('raiment.urls')),
+    path('', include('frontend.urls')),
     ]
 
