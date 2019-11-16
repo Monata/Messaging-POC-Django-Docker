@@ -40,5 +40,6 @@ ribbon
 |   └── Django setting files (urls.py, settings.py)
 ├── package.json 
 ├── (babel js configuration files)
+├── script.sh (you only have to run this script to deploy the server)
 └── requirements.txt
 ```
