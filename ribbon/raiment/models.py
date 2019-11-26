@@ -18,7 +18,8 @@ class Entry(models.Model):
 
 
 class Folder(models.Model):
-    created = models.DateTimeField()
+    # Creates a folder with the current time, the creation time uses server's creation time which is a bit problematic
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class FolderHas(models.Model):
