@@ -79,7 +79,12 @@ WSGI_APPLICATION = 'ribbon.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME' : 'raimentDB',
+        'USER': 'raiment',
+        'PASSWORD': 'raiment2019',
+        'HOST': 'localhost',
+        'PORT': '',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
