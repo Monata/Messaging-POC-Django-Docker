@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'raiment',
+    'django_extensions',
     'rest_framework',
     'frontend',
 ]
@@ -78,15 +79,14 @@ WSGI_APPLICATION = 'ribbon.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME' : 'raimentDB',
-        'USER': 'raiment',
-        'PASSWORD': 'raiment2019',
-        'HOST': 'localhost',
-        'PORT': '',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'default': {
+                    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                            'NAME': 'raimentDB',
+                                    'USER': 'raiment',
+                                            'PASSWORD': 'raiment2019',
+                                                    'HOST': 'localhost',
+                                                            'PORT': '5432',
+                                                                }
 }
 
 
