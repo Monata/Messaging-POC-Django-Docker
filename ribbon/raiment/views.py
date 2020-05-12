@@ -30,6 +30,5 @@ class FolderHasListCreate(generics.ListCreateAPIView):
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
     def get(self, request):
-        content = {'message': 'Hello, World!'}
+        content = {'message': 'Correcto!'}
         return Response(content)
-
