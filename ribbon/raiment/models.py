@@ -1,14 +1,29 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from ribbon.settings import COLOURS
 
+colour_choices = [(i,i) for i in COLOURS]
+
+class ItemType(models.Model):
+    # Class to store type
+    name = models.CharField(max_length=32)
 
 class Item(models.Model):
     # Class to store information about our clothing
-    size = models.CharField(max_length=8)
-    colour = models.CharField(max_length=32)
-    price = models.FloatField()
-    brand = models.CharField(max_length=50)
-    material = models.CharField(max_length=32)
+    colour = models.CharField(null = True,max_length=32,choices = colour_choices)
     image_link = models.URLField()
+    material = models.CharField(max_length=32)
+    price = models.FloatField()
+    size = models.CharField(max_length=8)
+    brand = models.CharField(max_length=50)
+    weather = models.CharField(null = True,max_length=32,choices=[('sunny','sunny'),('cloudy','cloudy'),('rainy','rainy')])
+    type = models.ForeignKey(ItemType, on_delete=models.SET_NULL,null=True)
+
+
+
 
 
 class Entry(models.Model):
@@ -28,6 +43,7 @@ class FolderHas(models.Model):
 
 
 class Packlist(models.Model):
+    name = models.CharField(max_length=256,default="Nameless Packlist")
     date = models.DateField()
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
 
@@ -37,26 +53,43 @@ class CalendarDay(models.Model):
     day = models.DateField()
 
 
-class User(models.Model):
-    # Can be subsituted by models.User
-    username = models.CharField(max_length=32)
-    password = models.CharField(max_length=32)
-    size_letter = models.CharField(max_length=8)
-    size_shoe = models.PositiveSmallIntegerField()
-    size_pants = models.PositiveSmallIntegerField()
 
+class UserProfile(models.Model):
+    # Can be subsituted by models.User
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # username = models.CharField(max_length=32)
+    # password = models.CharField(max_length=32)
+    size_letter = models.CharField(max_length=8,blank=True,null=True)
+    size_shoe = models.PositiveSmallIntegerField(blank=True,null=True)
+    size_pants = models.PositiveSmallIntegerField(blank=True,null=True)
+
+# @receiver(post_save, sender=User)
+# def create_auth_token(sender, instance=None, created=False, **kwargs):
+#     if created:
+#         Token.objects.create(user=instance)
+
+
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         UserProfile.objects.create(user=instance)
+#
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.profile.save()
 
 class Calendar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     day = models.ForeignKey(CalendarDay, on_delete=models.CASCADE)
 
 
-class FolderInventory():
+class FolderInventory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
 
 
-class PacklistInventory():
+class PacklistInventory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     packlist = models.ForeignKey(Packlist, on_delete=models.CASCADE)
 

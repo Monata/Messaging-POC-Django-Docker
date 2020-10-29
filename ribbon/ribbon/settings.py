@@ -11,11 +11,26 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import tensorflow as tf
+from tensorflow import keras
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
+MODEL = keras.models.load_model('model.h5',compile = 'false')
 
+COLOURS = {
+    "black":(0,0,0),
+    "gray": (127,127,127),
+    "red":(237,28,36),
+    "orange":(255, 127, 39),
+    "yellow":(255, 242, 0),
+    "green":(34, 177, 76),
+    "blue":(203, 228, 253),
+    "purple":(63,72,204),
+    "white":(255, 255, 255),
+    }
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -47,7 +62,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
