@@ -38,9 +38,11 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 SECRET_KEY = '3e&z+#k3drrdca(2i&+4qz(e#$rv5l4o0o(hxu30cov0h5y80#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+
 
 
 # Application definition

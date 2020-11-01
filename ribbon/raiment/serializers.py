@@ -25,27 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create(**validated_data.get('user'))
         user.set_password(user.password)
         user.save()
-        userProfile = UserProfile.objects.create(user=user)
-        userProfile.save()
+        user_profile = UserProfile.objects.create(user=user)
+        user_profile.save()
         token = Token.objects.create(user=user)
         token.save()
-        return userProfile
+        return user_profile
 
-# class MessageSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Message
-#         fields = ('receiver','txt')
-#
-#     def create(self, validated_data):
-#         author = self.context.get('request').user
-#         try:
-#             receiver = User.objects.get(username=validated_data['receiver'])
-#         except User.DoesNotExist:
-#             return None
-#         try:
-#             c = Conversation.objects.get(user1__in=[author,receiver],user2__in=[author,receiver])
-#         except Conversation.DoesNotExist:
-#             c = Conversation.objects.create(user1=author,user2=receiver)
-#
-#         message = Message.objects.create(author=author,txt=validated_data['txt'],conversation=c)
-#         return message

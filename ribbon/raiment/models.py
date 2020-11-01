@@ -7,8 +7,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 class Blocked(models.Model):
-    user1 = models.ForeignKey(User, on_delete=models.CASCADE,related_name='blocker')
-    user2 = models.ForeignKey(User, on_delete=models.CASCADE,related_name='blocked')
+    blocker = models.ForeignKey(User, on_delete=models.CASCADE,related_name='blocker')
+    blocked = models.ForeignKey(User, on_delete=models.CASCADE,related_name='blocked')
 
 class Conversation(models.Model):
     user1 = models.ForeignKey(User, on_delete=models.CASCADE,related_name='sender')
